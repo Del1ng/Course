@@ -3,9 +3,9 @@ import random
 class Human:
     def __init__(self, name):
         self.name = name
-        self.money = 10000000
-        self.happines = 1000000
-        self.satiety = 1000000
+        self.money = 1000
+        self.happines = 1000
+        self.satiety = 1000
         self.house = None
         self.job = None
         self.repair_kits = 0
@@ -18,7 +18,6 @@ class Human:
 
     def buy_car(self, car):
         self.car = car
-        print(f"{self.name} теперь с машиной {self.car.brand}.")
 
     def na_job(self, job):
         self.job = job
@@ -29,23 +28,24 @@ class Human:
         a = input("Что хотите съесть?: ")
         # Поедание еды
         if a == "1" and self.house.food > 0:
-            self.satiety += 20  
+            self.satiety += 30  
             self.happines += 10 
             self.house.food -= 1
         # Поедание мороженого
         elif a == "2" and self.house.ice_cream > 0:
-            self.satiety += 5
-            self.happines += 5
+            self.satiety += 10
+            self.happines += 20
             self.house.ice_cream -= 1
         else:
             print(f"{self.name} не может поесть. Сытость: {self.satiety}, еда: {self.house.food}, мороженое: {self.house.ice_cream}")
     # Работа
     def work(self):
+        # Проверка на наличие работы
         if self.job:
             self.money += self.job.salary
             self.happines -= 20
             self.satiety -= 10
-            print(f"{self.name} работал. Деньги: {self.money}, Счастье: {self.happines}, Сытость: {self.satiety}")
+            print(f"{self.name} работал. Delcoin's: {self.money}, Счастье: {self.happines}, Сытость: {self.satiety}")
         else:
             print(f"У {self.name} нет работы.")
     # Магазин
@@ -53,11 +53,11 @@ class Human:
         print("-" *20)
         print(f"Добро пожаловать в магазин, {self.name}!")
         print("Что хотите купить?")
-        print("1: Купить еду (20 денег за 1 штуку)")
-        print("2: Купить ремкомплект для машины (50 денег за 1 штуку)")
-        print("3: Купить мороженое (10 денег за 1 штуку)")
-        print("4: Купить топливо (100 денег за 20 литров)")
-        print("5: Купить машину (1000 денег)")
+        print("1: Купить еду (20 Delcoin's за 1 штуку)")
+        print("2: Купить ремкомплект для машины (50 Delcoin's за 1 штуку)")
+        print("3: Купить мороженое (10 Delcoin's за 1 штуку)")
+        print("4: Купить топливо (100 Delcoin's за 20 литров)")
+        print("5: Купить машину (1000 Delcoin's)")
         print("6: Выйти из магазина")
         
         while True:
@@ -68,12 +68,12 @@ class Human:
                 if self.house.food >= 10:
                     print(f"{self.name} не может купить еду, так как в доме уже есть больше 10 еды.")
                     print("-" *20)
-                    # Проверка на наличие денег
+                    # Проверка на наличие Delcoin's
                 elif self.money >= 20:
                     self.money -= 20
                     self.house.food += 1
                     self.satiety -= 10
-                    print(f"{self.name} купил 1 ед. еды. Деньги: {self.money}, Еда в доме: {self.house.food}")
+                    print(f"{self.name} купил 1 ед. еды. Delcoin's: {self.money}, Еда в доме: {self.house.food}")
                     print("-" *20)
                 else:
                     print(f"У вас недостаточно денег для покупки еды.")
@@ -89,10 +89,10 @@ class Human:
                         self.money -= 50
                         self.satiety -= 10
                         self.repair_kits += 1  
-                        print(f"{self.name} купил 1 ед. ремкомплекта. Деньги: {self.money}, Ремкомплектов на руках: {self.repair_kits}")
+                        print(f"{self.name} купил 1 ед. ремкомплекта. Delcoin's: {self.money}, Ремкомплектов на руках: {self.repair_kits}")
                         print("-" * 20)
                 else:
-                    print(f"У вас недостаточно денег для покупки ремкомплекта.")
+                    print(f"У вас недостаточно Delcoin's для покупки ремкомплекта.")
                     print("-" * 20)
             # Покупка мороженого
             elif c == "3":
@@ -104,10 +104,10 @@ class Human:
                     self.money -= 10
                     self.house.ice_cream += 1
                     self.satiety -= 5
-                    print(f"{self.name} купил 1 ед. мороженого. Деньги: {self.money}, Мороженое в доме: {self.house.ice_cream}")
+                    print(f"{self.name} купил 1 ед. мороженого. Delcoin's: {self.money}, Мороженое в доме: {self.house.ice_cream}")
                     print("-" *20)
                 else:
-                    print(f"У вас недостаточно денег для покупки мороженого.")
+                    print(f"У вас недостаточно Delcoin's для покупки мороженого.")
                     print("-" *20)
             # Покупка топлива
             elif c == "4":
@@ -119,10 +119,10 @@ class Human:
                     self.money -= 100
                     self.car.fuel += 20
                     self.satiety -= 10
-                    print(f"{self.name} купил 20 литров топлива. Деньги: {self.money}, Топливо: {self.car.fuel}")
+                    print(f"{self.name} купил 20 литров топлива. Delcoin's: {self.money}, Топливо: {self.car.fuel}")
                     print("-" *20)
                 else:
-                    print(f"У вас недостаточно денег для покупки топлива.")
+                    print(f"У вас недостаточно Delcoin's для покупки топлива.")
                     print("-" *20)
             # Покупка машины
             elif c == "5":
@@ -132,10 +132,10 @@ class Human:
                 elif self.money >= 1000:
                     self.money -= 1000
                     self.buy_car(car)
-                    print(f"{self.name} купил машину. Деньги: {self.money}")
+                    print(f"{self.name} купил машину. Delcoin's: {self.money}")
                     print("-" *20)
                 else:
-                    print(f"У вас недостаточно денег для покупки машины.")
+                    print(f"У вас недостаточно Delcoin's для покупки машины.")
                     print("-" *20)
 
             # Выход из магазина
@@ -163,7 +163,7 @@ class Human:
             print(f"У {self.name} нет дома для уборки.")
     # Статус
     def status(self):
-        print(f"Имя {self.name}: Деньги: {self.money}, Счастье: {self.happines}, Сытость: {self.satiety}, Еда в доме: {self.house.food}, Ремкомплекты: {self.repair_kits}")
+        print(f"Имя {self.name}: Delcoin's: {self.money}, Счастье: {self.happines}, Сытость: {self.satiety}, Еда в доме: {self.house.food}, Ремкомплекты: {self.repair_kits}")
 
         # Машина
 class Auto(Human):
