@@ -4,15 +4,21 @@ class Human:
     def __init__(self, name):
         self.name = name
         self.money = 10000000
-        self.happines = 100
-        self.satiety = 100
+        self.happines = 1000000
+        self.satiety = 1000000
         self.house = None
         self.job = None
         self.repair_kits = 0
         self.fuel = 0
+        self.car = None
+
 
     def housse(self, house):
         self.house = house
+
+    def buy_car(self, car):
+        self.car = car
+        print(f"{self.name} теперь с машиной {self.car.brand}.")
 
     def na_job(self, job):
         self.job = job
@@ -51,7 +57,8 @@ class Human:
         print("2: Купить ремкомплект для машины (50 денег за 1 штуку)")
         print("3: Купить мороженое (10 денег за 1 штуку)")
         print("4: Купить топливо (100 денег за 20 литров)")
-        print("5: Выйти из магазина")
+        print("5: Купить машину (1000 денег)")
+        print("6: Выйти из магазина")
         
         while True:
             c = input("Введите действие: ")
@@ -93,7 +100,6 @@ class Human:
                 if self.house.ice_cream >= 10:
                     print(f"{self.name} не может купить мороженое, так как в доме уже есть больше 10 мороженого.")
                     print("-" *20)
-                    # Проверка на наличие денег
                 elif self.money >= 10:
                     self.money -= 10
                     self.house.ice_cream += 1
@@ -106,21 +112,34 @@ class Human:
             # Покупка топлива
             elif c == "4":
                 # Проверка на наличие топлива
-                if self.fuel >= 100:
+                if self.car.fuel >= 100:
                     print(f"{self.name} не может купить топливо, так как у него уже есть больше 100 литров.")
                     print("-" *20)
-                    # Проверка на наличие денег
                 elif self.money >= 100:
                     self.money -= 100
-                    self.fuel += 20
+                    self.car.fuel += 20
                     self.satiety -= 10
-                    print(f"{self.name} купил 20 литров топлива. Деньги: {self.money}, Топливо: {self.fuel}")
+                    print(f"{self.name} купил 20 литров топлива. Деньги: {self.money}, Топливо: {self.car.fuel}")
                     print("-" *20)
                 else:
                     print(f"У вас недостаточно денег для покупки топлива.")
                     print("-" *20)
-            # Выход из магазина
+            # Покупка машины
             elif c == "5":
+                if self.car:
+                    print(f"{self.name} не может купить машину, так как у него уже есть машина.")
+                    print("-" *20)
+                elif self.money >= 1000:
+                    self.money -= 1000
+                    self.buy_car(car)
+                    print(f"{self.name} купил машину. Деньги: {self.money}")
+                    print("-" *20)
+                else:
+                    print(f"У вас недостаточно денег для покупки машины.")
+                    print("-" *20)
+
+            # Выход из магазина
+            elif c == "6":
                 print(f"{self.name} покинул магазин.")
                 print("-" *20)
                 break
@@ -193,10 +212,12 @@ class House:
     def house_status(self):
         print(f"Беспорядок: {self.mess}, Еда: {self.food}, Мороженок дома: {self.ice_cream}")
 
+
 car = Auto("Toyota", 0, 100, 5)  
 house = House()
 job = Job("Programmer", 100)
 human = Human("Alexandr")
+human.buy_car(car)
 human.na_job(job)
 human.housse(house)
 
